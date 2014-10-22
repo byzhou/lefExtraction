@@ -31,7 +31,7 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
     #write info the cell
     while ( <$readFile> ) {
         if ( /SIZE*/ ) {
-            print $writeFile "$&\t" ;
+            print $writeFile "$&\n" ;
             #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
             while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
                 if ( $XorY == 0 ) {
@@ -44,7 +44,7 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
             }
         }
         if ( /POLYGON*/ ) {
-            print $writeFile "$&" ;
+            print $writeFile "$&\n" ;
             while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
                 if ( $XorY == 0 ) {
                     print $writeFile "X $&\t" ;
