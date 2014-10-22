@@ -28,13 +28,16 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
 
     #write info the cell
     while ( <$readFile> ) {
-        if ( /SIZE./ ) {
-            print $writeFile "$1\n" ;
+        if ( /SIZE*/ ) {
+            print $writeFile "$&$'" ;
         }
-        if ( /POLYGON./ ) {
-            print $writeFile "$1\n" ;
+        if ( /POLYGON*/ ) {
+            print $writeFile "$&$'" ;
         }
     }
+
+    #end of the one readFile
+    print $writeFile "\n" ;
     close ( $readFile ) ;
 }
 
