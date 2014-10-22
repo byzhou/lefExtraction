@@ -6,7 +6,7 @@ use warnings ;
 $lefpre     = "FILLCELL\_X" ;
 $lefsuf     = "\.lef" ;
 $lefname    = $lefpre ;
-$cmd        = "pwd\n" ;
+#$cmd        = "pwd\n" ;
 $size       = 1 ;
 
 $output     = "des\_FILLCELL.txt" ;
@@ -28,8 +28,12 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
 
     #write info the cell
     while ( <$readFile> ) {
-        print $writeFile "$str" if ( $str = /SIZE*\n/ ) ;
-        print $writeFile "$str" if ( $str = /POLYGON*\n/ ) ;
+        if ( /SIZE./ ) {
+            print $writeFile "$1\n" ;
+        }
+        if ( /POLYGON./ ) {
+            print $writeFile "$1\n" ;
+        }
     }
     close ( $readFile ) ;
 }
