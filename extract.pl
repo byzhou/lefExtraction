@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use File::Basename ;
+use integer ;
 use warnings ;
 
 $lefpre     = "FILLCELL\_X" ;
@@ -8,6 +9,7 @@ $lefsuf     = "\.lef" ;
 $lefname    = $lefpre ;
 #$cmd        = "pwd\n" ;
 $size       = 1 ;
+$XorY       = 0 ;
 
 $output     = "des\_FILLCELL.txt" ;
 #write to file
@@ -29,10 +31,29 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
     #write info the cell
     while ( <$readFile> ) {
         if ( /SIZE*/ ) {
-            print $writeFile "$&$'" ;
+            print $writeFile "$&\t" ;
+            #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
+            while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
+                if ( $XorY == 0 ) {
+                    print $writeFile "X $&\t" ;
+                    $XorY   = 1 ;
+                } else {
+                    print $writeFile "Y $&\n" ;
+                    $XorY   = 0 ;
+                }
+            }
         }
         if ( /POLYGON*/ ) {
-            print $writeFile "$&$'" ;
+            print $writeFile "$&" ;
+            while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
+                if ( $XorY == 0 ) {
+                    print $writeFile "X $&\t" ;
+                    $XorY   = 1 ;
+                } else {
+                    print $writeFile "Y $&\n" ;
+                    $XorY   = 0 ;
+                }
+            }
         }
     }
 
