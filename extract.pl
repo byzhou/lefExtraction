@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-use File::Basename;
+use File::Basename ;
+use warnings ;
 
 $lefpre     = "FILLCELL\_X" ;
 $lefsuf     = "\.lef" ;
@@ -10,7 +11,7 @@ $size       = 1 ;
 
 $output     = "des\_FILLCELL.txt" ;
 #write to file
-open $writeFile , ">" , $output or die "$output is not available!\n" ; 
+open $writeFile , "+>" , $output or die "$output is not available!\n" ; 
 print $output . " has been successfully opened!\n" ;
 
 for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
@@ -23,12 +24,12 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
     print $lefname . " has been successfully opened!\n" ;
 
     #write the name of the cell
-    print $writeFile , $lefname ;
+    print $writeFile $lefname ;
 
     #write info the cell
-    while ( $lefname ) {
-        print $writeFile , "$1" if ( /SIZE*\n/ ) ;
-        print $writeFile , "$2" if ( /POLYGON*\n/ ) ;
+    while ( <$readFile> ) {
+        print $writeFile "$str" if ( $str = /SIZE*\n/ ) ;
+        print $writeFile "$str" if ( $str = /POLYGON*\n/ ) ;
     }
     close ( $readFile ) ;
 }
