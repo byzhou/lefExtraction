@@ -24,7 +24,7 @@ for ( my $i = 1 ; $i <= 32 ; $i = $i * 2 ) {
     print $lefname . " has been successfully opened!\n" ;
 
     #write the name of the cell
-    print $writeFile $lefname ;
+    print $writeFile $lefname . "\n" ;
 
     #write info the cell
     while ( <$readFile> ) {
